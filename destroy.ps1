@@ -32,7 +32,7 @@ Start-Sleep -Seconds 5
 
 Write-Host "Eliminando imágenes Docker..." -ForegroundColor Yellow
 
-$images = @("proyecto-test-zurich/frontend-img-mae:latest", "proyecto-test-zurich/backend-img-mae:latest","postgres:16-alpine")
+$images = @("proyecto-test-zurich/backend-img-mae:latest","postgres:16-alpine")
 
 foreach ($image in $images) {
     docker image inspect $image > $null 2>&1
