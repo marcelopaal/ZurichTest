@@ -1,0 +1,28 @@
+<h2>CRUD Clientes</h2>
+
+<!-- FORM -->
+<div>
+  <input placeholder="Nombre" [(ngModel)]="name" />
+  <input placeholder="Email" [(ngModel)]="email" />
+  <input placeholder="Teléfono" [(ngModel)]="phone" />
+
+  <button *ngIf="!editMode" (click)="addClient()">Crear</button>
+  <button *ngIf="editMode" (click)="updateClient()">Actualizar</button>
+  <button *ngIf="editMode" (click)="cancelEdit()">Cancelar</button>
+</div>
+
+<hr />
+
+<!-- LIST -->
+<ul>
+  <li *ngFor="let c of (clients$ | async)">
+    {{ c.name }} - {{ c.email }} - {{ c.phone }}
+
+    <button (click)="startEdit(c)">Editar</button>
+    <button (click)="deleteClient(c.id)">Eliminar</button>
+  </li>
+</ul>
+
+<br />
+
+<button (click)="clearAll()">Eliminar todos</button>

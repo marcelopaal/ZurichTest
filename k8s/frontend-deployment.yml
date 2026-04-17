@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-mae-deployment
+  namespace: proyecto-final-mae
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-mae
+  template:
+    metadata:
+      labels:
+        app: frontend-mae
+    spec:
+      containers:
+        - name: frontend-mae
+          image: proyecto-final-mae/frontend-img-mae:latest
+          imagePullPolicy: Never
+          env:
+            - name: VITE_API_URL
+              value: "http://localhost:30002/graphql"
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-mae-service
+  namespace: proyecto-final-mae
+spec:
+  type: NodePort #LoadBalancer
+  selector:
+    app: frontend-mae
+  ports:
+    - protocol: TCP
+      port: 80          # Puerto público que se expondrá
+      targetPort: 80  # Puerto del contenedor (Nginx)
